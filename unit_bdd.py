@@ -17,9 +17,7 @@ def creationBDD():
                                         "anglais"	TEXT NOT NULL,
                                         "categorie"	TEXT NOT NULL,
                                         "semaine"	INTEGER NOT NULL,
-                                        FOREIGN KEY("francais") REFERENCES "revision"("francais") ON UPDATE CASCADE,
-                                        PRIMARY KEY("francais","anglais"),
-                                        FOREIGN KEY("anglais") REFERENCES "revision"("anglais") ON UPDATE CASCADE
+                                        PRIMARY KEY("francais","anglais")
                                     );'''
     
     cur.execute(instructionCreationBDD_1)
@@ -27,11 +25,11 @@ def creationBDD():
     instructionCreationBDD_2 = '''  CREATE TABLE "revision" (
                                         "francais"	TEXT NOT NULL,
                                         "anglais"	TEXT NOT NULL,
-                                        "nb_vrais"	INTEGER NOT NULL,
-                                        "nb_faux"	INTEGER NOT NULL,
-                                        "date_derniere_revision"	TEXT,
-                                        "nb_vrais_sucessifs"	INTEGER NOT NULL,
-                                        PRIMARY KEY("francais","anglais")
+                                        "etatReussite"	TEXT NOT NULL,
+                                        "dateRevision"	TEXT NOT NULL,
+                                        PRIMARY KEY("francais","anglais"),
+                                        FOREIGN KEY("francais") REFERENCES "contenu"("francais") ON UPDATE CASCADE,
+                                        FOREIGN KEY("anglais") REFERENCES "contenu"("anglais") ON UPDATE CASCADE
                                     );'''
                                 
     cur.execute(instructionCreationBDD_2)
