@@ -79,7 +79,7 @@ def remplirBDD():
     cur.execute("""INSERT INTO contenu (francais, anglais, categorie, semaine, dateAjout) VALUES (?,?,?,?,?)""",(motFrancais, motAnglais, listeCategories[categorie-1], semaine, datetime.today().strftime('%Y-%m-%d')))
     con.commit()    #Nécessaire avec l'instruction INSERT
     
-def rien():
+def rien2():
     return 0
 
 
