@@ -1,6 +1,6 @@
 #importation de la bibliothèque pour gérer les BDD
 import sqlite3
-
+from datetime import datetime
 
 """Fonction permettant la création d'une BDD nommée souillard.db qui est la version simple du projet
 NOTE : si jamais vous venez à changer le code de creationBDD() il faut supprimer l'ancienne BDD avant de relancer la fonction"""
@@ -12,6 +12,7 @@ def creationBDD():
                                         "anglais"	TEXT NOT NULL,
                                         "categorie"	TEXT NOT NULL,
                                         "semaine"	INTEGER NOT NULL,
+                                        "dateAjout" INTEGER NOT NULL,
                                         PRIMARY KEY("francais","anglais")
                                     );'''
     
@@ -75,10 +76,15 @@ def remplirBDD():
             semaineCorrecte = True
             
     #instruction SQLite pour mettre les données dans la table contenu
-    cur.execute("""INSERT INTO contenu (francais, anglais, categorie, semaine) VALUES (?,?,?,?)""",(motFrancais, motAnglais, listeCategories[categorie-1], semaine))
+    cur.execute("""INSERT INTO contenu (francais, anglais, categorie, semaine, dateAjout) VALUES (?,?,?,?,?)""",(motFrancais, motAnglais, listeCategories[categorie-1], semaine, datetime.today().strftime('%Y-%m-%d')))
     con.commit()    #Nécessaire avec l'instruction INSERT
     
-    
+def rien():
+    return 0
+
+
+
+
     
 #Toujours se connecter à la BDD
 #connexion vers notre BDD avec une création implicite si elle n'existe pas
