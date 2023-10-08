@@ -27,5 +27,6 @@ listeCategories = ["'Units and measures'",
 
 #Début réel du prgramme
 
+remplirBDD(listeCategories)
 
 print(choixRevision(listeCategories))
