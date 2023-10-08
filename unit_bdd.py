@@ -12,7 +12,7 @@ def creationBDD():
                                         "anglais"	TEXT NOT NULL,
                                         "categorie"	TEXT NOT NULL,
                                         "semaine"	INTEGER NOT NULL,
-                                        "dateAjout" INTEGER NOT NULL,
+                                        "dateAjout" TEXT NOT NULL,
                                         PRIMARY KEY("francais","anglais")
                                     );'''
     
@@ -38,22 +38,9 @@ def creationBDD():
 NOTE : attention, si vous avez changé le nom de la BDD il faudra aussi l'éditer ici
 NOTE : cette fonction permet de remplir la BDD dans sa version simple"""
 
-def remplirBDD():
+def remplirBDD(listeCategories):
     motFrancais = input("\nVeuillez entrer le mot français : ")
     motAnglais = input("\nVeuillez entrer le mot anglais : ")
-    
-    #Attention, s'il faut changer le nom d'une catégorie déjà existante dans la BDD il faudra être prudent
-    listeCategories = ["'Units and measures'",
-                       "'Common abbreviations'",
-                       "'Acronyms and abbreviations'",
-                       "'Expressions de liaison'",
-                       "'False friends'",
-                       "'Idioms'",
-                       "'Prepositions'",
-                       "'Technology and basic engineering'",
-                       "'Employment'",
-                       "'Information technology'",
-                       "'Pollution'",]
     
     print("\nVeuillez choisir la catégorie du mot : ")
     for loop in range(len(listeCategories)):
@@ -79,20 +66,8 @@ def remplirBDD():
     cur.execute("""INSERT INTO contenu (francais, anglais, categorie, semaine, dateAjout) VALUES (?,?,?,?,?)""",(motFrancais, motAnglais, listeCategories[categorie-1], semaine, datetime.today().strftime('%Y-%m-%d')))
     con.commit()    #Nécessaire avec l'instruction INSERT
     
-def rien2():
-    return 0
-
 
 
 
     
-#Toujours se connecter à la BDD
-#connexion vers notre BDD avec une création implicite si elle n'existe pas
-con = sqlite3.connect("souillard.db")
 
-#création d'un curseur nécessaire à l'envoi de requête SQLite
-cur = con.cursor()
-print("Connexion réussie")
-#Début réel du prgramme
-creationBDD()
-remplirBDD()
