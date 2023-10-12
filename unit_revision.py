@@ -16,9 +16,9 @@ def choixRevision(listeCategories):
             if (int(choixSemaine) > 0) and (int(choixSemaine) < 42):
                 semaineCorrecte = True
         if choixRevisionSemaine != "o":
-            return("revisionSemaine", "semaineUnique", choixSemaine)
+            return "revisionSemaine", "semaineUnique", choixSemaine
         else:
-            return("revisionSemaine", "semaineAvant", choixSemaine)
+            return "revisionSemaine", "semaineAvant", choixSemaine
         
     else:
         print("\nVeuillez choisir la catégorie du mot : ")
@@ -31,6 +31,35 @@ def choixRevision(listeCategories):
             if (int(choixCategorie) > 0) and (int(choixCategorie) < len(listeCategories) + 1):
                 categorieCorrecte = True
         choixCategorie = listeCategories[int(choixCategorie)-1]
-        return("revisionCategorie", "", choixCategorie)
+        return "revisionCategorie", "", choixCategorie
+    
+
+def recupDonneesRevision(typeRevision, estSemaineAvant, choix):    
+    
+    #on définit le bout d'instruction SQL qui nous permettra de récupérer ce que l'on veut réviser
+    match typeRevision:
+        case "revisionSemaine":
+            match estSemaineAvant:
+                case "semaineUnique":
+                    conditionSQL = " WHERE semaine="+choix
+                case "semaineAvant":
+                    conditionSQL = " WHERE semaine<="+choix
+        case "revisionCategorie":
+            conditionSQL = " WHERE categorie="+choix
     
     
+    #renvoie une liste de tuple que l'on ramenera à des CdC (ex : [('un',), ('deux',), ... ])
+    cur.execute("SELECT francais FROM contenu"+conditionSQL)
+    listeFrancais = cur.fetchall()
+    #on remet la liste de tuple en liste de string
+    for i in range(len(listeFrancais)):
+        listeFrancais[i] = ''.join(listeFrancais[i])
+    
+    cur.execute("SELECT anglais FROM contenu"+conditionSQL)
+    listeAnglais = cur.fetchall()
+    #on remet la liste de tuple en liste de string
+    for j in range(len(listeAnglais)):
+        listeAnglais[j] = ''.join(listeAnglais[j])
+
+    return listeFrancais, listeAnglais
+

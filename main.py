@@ -30,3 +30,5 @@ listeCategories = ["'Units and measures'",
 remplirBDD(listeCategories)
 
 print(choixRevision(listeCategories))
+
+recupDonneesRevision(choixRevision(listeCategories))
