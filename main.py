@@ -27,8 +27,19 @@ listeCategories = ["'Units and measures'",
 
 #Début réel du prgramme
 
-remplirBDD(listeCategories)
+#remplirBDD(listeCategories)
 
-print(choixRevision(listeCategories))
+#print(choixRevision(listeCategories))
 
-recupDonneesRevision(choixRevision(listeCategories))
+typeRevision, estSemaineAvant, choix = choixRevision(listeCategories)
+print("test="+choix)
+liste_fr, liste_ang = recupDonneesRevision(typeRevision, estSemaineAvant, choix)
+print(liste_fr)
+print(liste_ang)
+
+
+#ISSUE : quand on valide rien pour le choix de la catégorie ça ne soulève pas d'erreur
+#En fait il n'y a l'air d'avoir aucune vérif sur ce que j'entre
+
+#le récup des données avec les semaines à l'air de fonctionné mais pas par rapport aux catégories
+#C'est parce qu'il y a des guillemets en trop lorsque que je remplie les catégories de ma BDD (je n'ai pas 'Pollution' mais "'Pollution'")

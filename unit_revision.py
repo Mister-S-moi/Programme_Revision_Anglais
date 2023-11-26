@@ -31,7 +31,7 @@ def choixRevision(listeCategories):
             if (int(choixCategorie) > 0) and (int(choixCategorie) < len(listeCategories) + 1):
                 categorieCorrecte = True
         choixCategorie = listeCategories[int(choixCategorie)-1]
-        return "revisionCategorie", "", choixCategorie
+        return "revisionCategorie", None, choixCategorie
     
 
 def recupDonneesRevision(typeRevision, estSemaineAvant, choix):    
@@ -49,7 +49,8 @@ def recupDonneesRevision(typeRevision, estSemaineAvant, choix):
     
     
     #renvoie une liste de tuple que l'on ramenera à des CdC (ex : [('un',), ('deux',), ... ])
-    cur.execute("SELECT francais FROM contenu"+conditionSQL)
+    #cur.execute("SELECT francais FROM contenu"+conditionSQL)
+    cur.execute("SELECT francais FROM contenu WHERE categorie='Pollution'")
     listeFrancais = cur.fetchall()
     #on remet la liste de tuple en liste de string
     for i in range(len(listeFrancais)):
